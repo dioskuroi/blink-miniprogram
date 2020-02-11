@@ -1,1 +1,6 @@
 /**app.wxss**/
+/* 组件可以使用全局样式有 font 和 color，其余设置对全局样式均不对组件生效，而对于 page 则全部生效 */
+page {
+  font-family: "PingFangSC-Thin";
+  font-size: 32rpx;  
+}
