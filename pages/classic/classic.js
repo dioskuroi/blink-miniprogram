@@ -1,4 +1,6 @@
 // pages/classic/classic.js
+import Http from '../../util/Http.js'
+const http = new Http()
 Page({
 
   /**
@@ -12,7 +14,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    http.request({
+      url: 'classic/latest',
+    }).then(data => {
+      console.log(data)
+    })
   },
 
   /**
