@@ -1,6 +1,10 @@
 // pages/classic/classic.js
 import ClassicModel from '../../models/Classic.js'
-const classic = new ClassicModel()
+import LikeModel from '../../models/Like.js'
+
+const classicModel = new ClassicModel()
+const likeModel = new LikeModel()
+
 Page({
 
   /**
@@ -15,11 +19,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    classic.getLatest().then(res => {
+    classicModel.getLatest().then(res => {
       this.setData({
         ...res
       })
     })
+  },
+
+  onLike({ detail }) {
+    const { behavior } = detail
+    const { id: artId, type } = this.data
+    likeModel.like({ behavior, artId, type })
   },
 
   /**

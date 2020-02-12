@@ -35,6 +35,8 @@ Component({
         like,
         count
       })
+      const behavior = like ? 'like' : 'cancel'
+      this.triggerEvent('like', { behavior })
     }
   }
 })
