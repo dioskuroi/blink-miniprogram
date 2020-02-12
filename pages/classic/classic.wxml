@@ -1,2 +1,2 @@
 <!--pages/classic/classic.wxml-->
-<v-like />
+<v-like like="{{ like_status }}"  count="{{ fav_nums }}"/>

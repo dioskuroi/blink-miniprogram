@@ -1,23 +1,24 @@
 // pages/classic/classic.js
-import Http from '../../util/Http.js'
-const http = new Http()
+import ClassicModel from '../../models/Classic.js'
+const classic = new ClassicModel()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    fav_nums: 0,
+    like_status: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    http.request({
-      url: 'classic/latest',
-    }).then(data => {
-      console.log(data)
+    classic.getLatest().then(res => {
+      this.setData({
+        ...res
+      })
     })
   },
 
