@@ -3,7 +3,7 @@
     "pages/classic/classic"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#ffff00",
+    "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "blink",
     "backgroundColor": "#ffffff",
