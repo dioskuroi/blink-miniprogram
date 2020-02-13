@@ -1,17 +1,9 @@
 // components/classic/movie/index.js
-Component({
-  /**
-   * 组件的属性列表
-   */
-  properties: {
-    img: {
-      type: String
-    },
-    content: {
-      type: String
-    }
-  },
+import classicBehavior from '../classic-behavior.js'
 
+Component({
+  // 相当于 Vue 的 mixin
+  behaviors: [classicBehavior],
   /**
    * 组件的初始数据
    */
