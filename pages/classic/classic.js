@@ -12,7 +12,9 @@ Page({
    */
   data: {
     fav_nums: 0,
-    like_status: 0
+    like_status: 0,
+    first: false,
+    latest: true
   },
 
   /**
@@ -30,6 +32,14 @@ Page({
     const { behavior } = detail
     const { id: artId, type } = this.data
     likeModel.like({ behavior, artId, type })
+  },
+
+  onNext() {
+
+  },
+
+  onPrev() {
+
   },
 
   /**
