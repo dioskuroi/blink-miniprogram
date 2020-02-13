@@ -21,9 +21,13 @@ export default class Http {
           'content-type': 'application/json',
           'appkey': APP_KEY
         },
-        success(res) {
+        success: (res) => {
           if (res.statusCode.toString().startsWith('2')) {
-            resolve(res.data)
+            if (this.resHandler) {
+              this.resHandler(res, resolve)
+            } else {
+              resolve(res.data)
+            }
           } else {
             this._showError(res.data.error_code)
             reject(res.data)
