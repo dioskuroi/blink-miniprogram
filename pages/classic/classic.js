@@ -14,16 +14,20 @@ Page({
     fav_nums: 0,
     like_status: 0,
     first: false,
-    latest: true
+    latest: true,
+    latestIndex: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    classicModel.getLatest().then(res => {
+    classicModel.getLatest().then(data => {
       this.setData({
-        ...res
+        ...data,
+        latestIndex: data.index,
+        frist: false,
+        latest: true
       })
     })
   },
@@ -35,11 +39,26 @@ Page({
   },
 
   onNext() {
-
+    const { index } = this.data
+    classicModel.getNext(index).then(data => {
+      console.log(data)
+      this.setData({
+        ...data,
+        latest: data.index === this.data.latestIndex ? true: false,
+        first: false
+      })
+    })
   },
 
   onPrev() {
-
+    const { index } = this.data
+    classicModel.getPrev(index).then(data => {
+      this.setData({
+        ...data,
+        first: data.index === 1 ? true : false,
+        latest: false
+      })
+    })
   },
 
   /**
