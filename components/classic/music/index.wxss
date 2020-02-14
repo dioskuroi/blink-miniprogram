@@ -10,6 +10,24 @@
   height: 422rpx;
   border-radius: 50%;
   margin-top: 60rpx;
+  animation: rotate 10s linear infinite;
+}
+
+.play {
+  animation-play-state: running;
+}
+
+.paused {
+  animation-play-state: paused;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg)
+  }
+  100% {
+    transform: rotate(360deg)
+  }
 }
 
 .player-img {

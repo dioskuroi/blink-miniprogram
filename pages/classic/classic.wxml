@@ -4,8 +4,9 @@
     <v-epsoide class="epsoide" index="{{ index }}"/>
     <v-like class="like" bind:like="onLike" like="{{ like_status }}"  count="{{ fav_nums }}"/>
   </view>
+  <!-- wx:if 和 hidden 的区别，wx:if 每次组件都会重新生成，执行生命周期函数，hidden 只是将组件隐藏，不会执行生命周期函数 -->
   <v-movie wx:if="{{type === 100}}" img="{{ image }}" content="{{ content }}"/>
-  <v-music wx:elif="{{type === 200}}" img="{{ image }}" content="{{ content }}" />
+  <v-music wx:elif="{{type === 200}}" src="{{ url }}" img="{{ image }}" content="{{ content }}" />
   <v-essay wx:elif="{{type === 300}}" img="{{ image }}" content="{{ content }}"/>
   <v-navi
     title="{{ title }}" 
