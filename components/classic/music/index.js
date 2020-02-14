@@ -3,6 +3,10 @@ import classicBehavior from '../classic-behavior.js'
 Component({
   behaviors: [classicBehavior],
 
+  properties: {
+    src: String
+  },
+
   /**
    * 组件的初始数据
    */
