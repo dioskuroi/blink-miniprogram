@@ -19,7 +19,6 @@ export default class ClassicModel extends Http {
   _getClassic(curIndex, step) {
     return new Promise(resolve => {
       const key = this._getKey(curIndex + step)
-      console.log(key)
       getStorage(key).then(({ data }) => {
         resolve(data)
       }).catch(() => {

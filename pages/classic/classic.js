@@ -15,7 +15,9 @@ Page({
     like_status: 0,
     first: false,
     latest: true,
-    latestIndex: 0
+    latestIndex: 0,
+    like_status: 0,
+    fav_nums: 0
   },
 
   /**
@@ -23,6 +25,7 @@ Page({
    */
   onLoad: function (options) {
     classicModel.getLatest().then(data => {
+      this._getClassicLikeStatus(data.id, data.type)
       this.setData({
         ...data,
         latestIndex: data.index,
@@ -41,7 +44,7 @@ Page({
   onNext() {
     const { index } = this.data
     classicModel.getNext(index).then(data => {
-      console.log(data)
+      this._getClassicLikeStatus(data.id, data.type)
       this.setData({
         ...data,
         latest: data.index === this.data.latestIndex ? true: false,
@@ -53,6 +56,7 @@ Page({
   onPrev() {
     const { index } = this.data
     classicModel.getPrev(index).then(data => {
+      this._getClassicLikeStatus(data.id, data.type)
       this.setData({
         ...data,
         first: data.index === 1 ? true : false,
@@ -108,5 +112,13 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  _getClassicLikeStatus(artID, type) {
+    likeModel.getClassicLikeStatus(artID, type).then(data => {
+      this.setData({
+        like_status: data.like_status,
+        fav_nums: data.fav_nums
+      })
+    })
   }
 })

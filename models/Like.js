@@ -12,4 +12,9 @@ export default class LikeModel extends Http {
       }
     })
   }
+  getClassicLikeStatus(artID, type) {
+    return this.request({
+      url: `classic/${type}/${artID}/favor`
+    })
+  }
 }
