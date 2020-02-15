@@ -30,4 +30,14 @@ export default class BookModel extends Http {
       url: `book/${bid}/short_comment`
     })
   }
+
+  getAllBookDetail(bid) {
+    return Promise.all([
+      this.getDetail(bid),
+      this.getComments(bid),
+      this.getLikeStatus(bid)
+    ]).then(([book, comments, { like_status, fav_nums }]) => {
+      return Promise.resolve({ book, comments, likeStatus: like_status, likeCount: fav_nums })
+    })
+  }
 }

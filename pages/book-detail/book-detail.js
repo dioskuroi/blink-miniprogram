@@ -1,11 +1,18 @@
 // pages/book-detail/book-detail.js
+import BookModel from '../../models/Book.js'
+
+const bookModel = new BookModel()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    comments: [],
+    book: null,
+    likeStatus: false,
+    likeCount: 0
   },
 
   /**
@@ -13,8 +20,15 @@ Page({
    */
   // options 中可以接收到 url 传递的参数
   onLoad: function (options) {
-    const { bid } = options
-    console.log(bid)
+    this.getAllBookData(options)
+  },
+
+  getAllBookData({ bid }) {
+    bookModel.getAllBookDetail(bid).then(data => {
+      this.setData({
+        ...data
+      })
+    })
   },
 
   /**
