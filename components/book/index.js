@@ -18,6 +18,11 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    onTap() {
+      const { id } = this.properties.book
+      wx.navigateTo({
+        url: `/pages/book-detail/book-detail?bid=${id}`,
+      })
+    }
   }
 })
