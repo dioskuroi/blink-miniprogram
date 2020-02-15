@@ -16,8 +16,6 @@ Page({
     first: false,
     latest: true,
     latestIndex: 0,
-    like_status: 0,
-    fav_nums: 0
   },
 
   /**
