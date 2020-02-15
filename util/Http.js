@@ -42,7 +42,7 @@ export default class Http {
   }
   _showError(errorCode) {
     wx.showToast({
-      title: tips[errorCode],
+      title: tips[errorCode] || tips[1],
       icon: 'none',
       duration: 2000
     })
