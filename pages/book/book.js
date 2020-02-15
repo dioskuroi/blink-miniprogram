@@ -1,3 +1,7 @@
+import BookModel from '../../models/Book.js'
+
+const bookModel = new BookModel()
+
 // pages/book/book.js
 Page({
 
@@ -5,14 +9,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    books: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    bookModel.getHotList().then(data => {
+      this.setData({
+        books: data
+      })
+    })
   },
 
   /**

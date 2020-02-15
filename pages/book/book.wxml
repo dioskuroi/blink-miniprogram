@@ -1,2 +1,16 @@
-<!--pages/book/book.wxml-->
-<text>pages/book/book.wxml</text>
+<view class="container">
+  <view class="header">
+    <view class="box">
+      <image src="/images/icon/search.png" />
+      <text>搜索书籍</text>
+    </view>
+  </view>
+  <view class="sub-container">
+    <image class="head-img" src="/images/book/quality.png" />
+    <view class="books-container">
+      <!-- wx:for 循环中，可以直接使用 item 变量，如果需自定义，需要使用 wx:for-item="别名" -->
+      <!-- wx:key 如果 循环的每一项是 object，那么可以直接填写对象中的唯一属性，如果每一项本身就能当 key，那么可以直接写 *this -->
+      <v-book wx:for="{{ books }}" wx:key="id" book="{{ item }}" />
+    </view>
+  </view>
+</view>
