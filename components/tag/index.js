@@ -3,8 +3,9 @@ Component({
   /**
    * 组件的属性列表
    */
+  externalClasses: ['tag-class'],
   properties: {
-
+    text: String
   },
 
   /**
@@ -18,6 +19,10 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    onTap() {
+      this.triggerEvent('tapping', {
+        text: this.properties.text
+      })
+    }
   }
 })

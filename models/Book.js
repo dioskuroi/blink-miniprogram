@@ -36,8 +36,19 @@ export default class BookModel extends Http {
       this.getDetail(bid),
       this.getComments(bid),
       this.getLikeStatus(bid)
-    ]).then(([book, comments, { like_status, fav_nums }]) => {
+    ]).then(([book, { comments }, { like_status, fav_nums }]) => {
       return Promise.resolve({ book, comments, likeStatus: like_status, likeCount: fav_nums })
+    })
+  }
+
+  postComment(bid, content) {
+    return this.request({
+      url: 'book/add/short_comment',
+      method: 'POST',
+      data: {
+        book_id: bid,
+        content
+      }
     })
   }
 }

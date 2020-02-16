@@ -1,7 +1,9 @@
 // pages/book-detail/book-detail.js
 import BookModel from '../../models/Book.js'
+import LikeModel from '../../models/Like.js'
 
 const bookModel = new BookModel()
+const likeModel = new LikeModel()
 
 Page({
 
@@ -12,7 +14,8 @@ Page({
     comments: [],
     book: null,
     likeStatus: false,
-    likeCount: 0
+    likeCount: 0,
+    posting: false
   },
 
   /**
@@ -27,6 +30,62 @@ Page({
     bookModel.getAllBookDetail(bid).then(data => {
       this.setData({
         ...data
+      })
+    })
+  },
+
+  onLike({ detail }) {
+    const { behavior } = detail
+    const { id: artId } = this.data.book
+    likeModel.like({ behavior, artId, type: 400 })
+  },
+
+  onFakePost() {
+    this.setData({
+      posting: true
+    })
+  },
+
+  onCancel() {
+    this.setData({
+      posting: false
+    })
+  },
+
+  onPost({ detail }) {
+    const { id } = this.data.book
+    const { text, value } = detail
+    const content = text || value
+    if (content.length > 12) {
+      wx.showToast({
+        title: '短评最多12个字',
+        icon: 'none'
+      })
+      return
+    }
+
+    if (!content) {
+      wx.showToast({
+        title: '请输入短评',
+        icon: 'none'
+      })
+      return
+    }
+
+    bookModel.postComment(id, content).then(data => {
+      wx.showToast({
+        title: '+ 1',
+        icon: 'none'
+      })
+
+      const { comments } = this.data
+      comments.unshift({
+        content,
+        nums: 1
+      })
+      this.setData({
+        comments,
+        posting: false
       })
     })
   },
