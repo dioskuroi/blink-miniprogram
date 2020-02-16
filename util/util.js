@@ -6,7 +6,7 @@ export function getStorage(key) {
         resolve(res)
       },
       fail(err) {
-        reject(err)
+        resolve({ data: undefined })
       }
     })
   })
