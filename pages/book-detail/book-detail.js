@@ -27,7 +27,11 @@ Page({
   },
 
   getAllBookData({ bid }) {
+    wx.showLoading({
+      title: '加载中...',
+    })
     bookModel.getAllBookDetail(bid).then(data => {
+      wx.hideLoading()
       this.setData({
         ...data
       })
