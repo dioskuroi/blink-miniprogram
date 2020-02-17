@@ -7,27 +7,43 @@
         placeholder="书籍名" 
         class="bar" 
         auto-focus="true"
+        value="{{ keyword }}"
         bind:confirm="onConfirm" />
-      <image class="cancel-img" src="images/cancel.png" />
+      <image class="cancel-img" bind:tap="onDelete" src="images/cancel.png" />
     </view>
     <view class="cancel" bind:tap="onCancel">取消</view>
   </view>
-  <view class="history">
-    <view class="title">
-      <view class="chunk"></view>
-      <text>历史搜索</text>
+  <view wx:if="{{ !searching }}">
+    <view class="history">
+      <view class="title">
+        <view class="chunk"></view>
+        <text>历史搜索</text>
+      </view>
+      <view class="tags">
+        <v-tag bind:tapping="onConfirm" wx:for="{{ historys }}" wx:key="*this" text="{{ item }}" />
+      </view>
     </view>
-    <view class="tags">
-      <v-tag wx:for="{{ historys }}" wx:key="*this" text="{{ item }}" />
+    <view class="history hot-search">
+      <view class="title">
+        <view class="chunk"></view>
+        <text>热门搜索</text>
+      </view>
+      <view class="tags">
+        <v-tag bind:tapping="onConfirm" wx:for="{{ hots }}" wx:key="*this" text="{{ item }}" />
+      </view>
     </view>
   </view>
-  <view class="history hot-search">
-    <view class="title">
-      <view class="chunk"></view>
-      <text>热门搜索</text>
+
+  <scroll-view 
+    class="scroll-container"
+    style="height:{{height}}px"
+    wx:else
+    scroll-y="{{ true }}"
+    enable-flex="{{ true }}"
+    scroll-anchoring="{{ true }}"
+    bindscrolltolower="loadMore">
+    <view class="books-container">
+      <v-book wx:for="{{ books }}" wx:key="id" class="book" book="{{item}}" />
     </view>
-    <view class="tags">
-      <v-tag wx:for="{{ hots }}" wx:key="*this" text="{{ item }}" />
-    </view>
-  </view>
+  </scroll-view>
 </view>

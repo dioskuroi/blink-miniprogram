@@ -1,7 +1,10 @@
 // components/search/index.js
 import KeywordModel from '../../models/Keyword.js'
+import BookModel from '../../models/Book.js'
+import { getSystemInfo } from '../../util/util.js'
 
 const keywordModel = new KeywordModel()
+const bookModel = new BookModel()
 
 Component({
   /**
@@ -17,10 +20,20 @@ Component({
     historys: [],
     hots: [],
     books: [],
-    total: 0
+    total: 0,
+    pageIndex: 0,
+    searching: false,
+    keyword: '',
+    height: 100
   },
 
   attached() {
+    getSystemInfo().then(({ windowHeight}) => {
+      this.setData({
+        height: windowHeight
+      })
+    })
+
     keywordModel.getHistory().then(({ data = [] }) => {
       this.setData({
         historys: data
@@ -41,19 +54,47 @@ Component({
       this.triggerEvent('cancel')
     },
     onConfirm({ detail }) {
-      const { value } = detail
-      if (!value) return
-      keywordModel.search(0, value).then(({books, total}) => {
+      const { value, text } = detail
+      const keyword = text || value
+      if (!keyword) return
+      this.setData({
+        searching: true,
+        keyword
+      })
+
+      bookModel.search(0, keyword).then(({books, total}) => {
         this.setData({
           books,
-          total
+          total,
+          keyword,
+          pageIndex: 0
         })
-        keywordModel.setHistory(value).then(() => {
+        keywordModel.setHistory(keyword).then(() => {
           const { historys } = this.data
-          historys.unshift(value)
+          historys.unshift(keyword)
           this.setData({
             historys
           })
+        })
+      })
+    },
+    onDelete() {
+      this.setData({
+        searching: false,
+        books: []
+      })
+    },
+    loadMore() {
+      console.log(1)
+      const { pageIndex, total, keyword, books } = this.data
+      const currentIndex = (pageIndex + 1) * 20
+      if (currentIndex >= total) return
+      bookModel.search(pageIndex + 1, keyword).then(({ books: newBooks, total }) => {
+        this.setData({
+          books: books.concat(newBooks),
+          total,
+          keyword,
+          pageIndex: pageIndex + 1
         })
       })
     }

@@ -85,6 +85,10 @@
     margin-bottom: 25rpx;
 }
 
+.scroll-container {
+  width: 100%;
+}
+
 .books-container {
     width: 570rpx;
     margin-top: 100rpx;
