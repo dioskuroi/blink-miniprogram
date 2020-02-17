@@ -26,3 +26,16 @@ export function setStorage(key, data) {
     })
   })
 }
+
+export function getSystemInfo() {
+  return new Promise((resolve, reject) => {
+    wx.getSystemInfo({
+      success: function(res) {
+        resolve(res)
+      },
+      fail: function(res) {
+        reject(res)
+      }
+    })
+  })
+}
