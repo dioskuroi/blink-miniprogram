@@ -34,14 +34,4 @@ export default class KeywordModel extends Http {
       url: 'book/hot_keyword'
     })
   }
-
-  search(start, q) {
-    return this.request({
-      url: 'book/search?summary=1',
-      data: {
-        q,
-        start
-      }
-    })
-  }
 }
