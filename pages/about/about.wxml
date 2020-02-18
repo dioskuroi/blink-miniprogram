@@ -1,0 +1,5 @@
+<image class="about"  />
+<!-- 进行小程序之间跳转 target 指定跳转的是小程序，app-id 你要跳转的小程序的appid open-type = navigate -->
+ <navigator class="nav" target="miniProgram" app-id="wx8ffc97ad5bcccc89" open-type="navigate">
+ <image class="vendor" src="/images/my/vendor.png"></image>
+ </navigator> 
