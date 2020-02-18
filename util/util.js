@@ -39,3 +39,29 @@ export function getSystemInfo() {
     })
   })
 }
+
+export function getSetting() {
+  return new Promise((resolve, reject) => {
+    wx.getSetting({
+      success: function({ authSetting }) {
+        resolve(authSetting)
+      },
+      fail: function(err) {
+        reject(err)
+      }
+    })
+  })
+}
+
+export function getUserInfo() {
+  return new Promise((resolve, reject) => {
+    wx.getUserInfo({
+      success: function(data) {
+        resolve(data)
+      },
+      fail: function(err) {
+        reject(err)
+      }
+    })
+  })
+}
