@@ -2,7 +2,13 @@
 <view class="containter">
   <view class="header">
     <v-epsoide class="epsoide" index="{{ index }}"/>
-    <v-like class="like" bind:like="onLike" like="{{ like_status }}"  count="{{ fav_nums }}"/>
+    <view class="like-container">
+      <v-like class="like" bind:like="onLike" like="{{ like_status }}"  count="{{ fav_nums }}"/>
+      <!-- 分享，open-type = share -->
+      <v-button class="share-btn" open-type="share">
+        <image class="share" slot="img" src="/images/icon/share.png" />
+      </v-button>
+    </view>
   </view>
   <!-- wx:if 和 hidden 的区别，wx:if 每次组件都会重新生成，执行生命周期函数，hidden 只是将组件隐藏，不会执行生命周期函数 -->
   <v-movie wx:if="{{type === 100}}" img="{{ image }}" content="{{ content }}"/>

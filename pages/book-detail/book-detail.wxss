@@ -169,6 +169,15 @@
     color: #666;
 }
 
+.share-btn {
+    margin-top: 18rpx;
+}
+
+.share {
+    width: 40rpx;
+    height: 40rpx;
+}
+
 .post-header text {
     padding: 25rpx;
 }
