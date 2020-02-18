@@ -14,7 +14,8 @@ Page({
   data: {
     authorized: false,
     userInfo: {},
-    bookCount: 0
+    bookCount: 0,
+    classics: []
   },
 
   /**
@@ -23,6 +24,7 @@ Page({
   onLoad: function (options) {
     this.userAuthorized()
     this.getMyBookCount()
+    this.getMyFavor()
   },
 
   onGetUserInfo({ detail }) {
@@ -55,6 +57,18 @@ Page({
         bookCount: count
       })
     })
+  },
+
+  getMyFavor() {
+    classicModel.getMyFavor().then(classics => {
+      this.setData({
+        classics
+      })
+    })
+  },
+
+  onJumpToDetail() {
+
   },
 
   // 如果想从一个小程序跳到另外一个小程序，那么这两个小程序必须同时关联一个公众号（服务号/订阅号）

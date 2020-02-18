@@ -10,6 +10,10 @@ Component({
     },
     count: {
       type: Number  // 默认值为 0
+    },
+    readOnly: {
+      type: Boolean,
+      value: false
     }
   },
 
@@ -26,6 +30,7 @@ Component({
    */
   methods: {
     onLike() {
+      if (this.properties.readOnly) return
       let like = this.properties.like
       let count = this.properties.count
       like = !like
