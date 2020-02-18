@@ -43,10 +43,11 @@
     scroll-anchoring="{{ true }}"
     bindscrolltolower="loadMore">
     <view class="books-container">
-      <v-book wx:for="{{ books }}" wx:key="id" class="book" book="{{item}}" />
+      <v-book wx:for="{{ books }}"  wx:key="id" showLike="{{ false }}" class="book" book="{{item}}" />
     </view>
   </scroll-view>
 
   <v-loading class="loading-center" wx:if="{{ loadingCenter }}" />
   <v-loading class="loading" wx:if="{{ loadingBottom }}" />
+  <text wx:if="{{ !loadingCenter && searching && books.length === 0 }}" class="empty-tip">没有搜索到书籍</text>
 </view>
