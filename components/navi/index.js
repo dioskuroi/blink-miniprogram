@@ -19,10 +19,10 @@ Component({
    * 组件的初始数据
    */
   data: {
-    leftSrc: 'images/triangle@left.png',
-    disLeftSrc: 'images/triangle.dis@left.png',
-    rightSrc: 'images/triangle@right.png',
-    disRightSrc: 'images/triangle.dis@right.png'
+    leftSrc: './images/triangle@left.png',
+    disLeftSrc: './images/triangle.dis@left.png',
+    rightSrc: './images/triangle@right.png',
+    disRightSrc: './images/triangle.dis@right.png'
   },
 
   /**
