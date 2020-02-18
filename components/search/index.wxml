@@ -46,4 +46,7 @@
       <v-book wx:for="{{ books }}" wx:key="id" class="book" book="{{item}}" />
     </view>
   </scroll-view>
+
+  <v-loading class="loading-center" wx:if="{{ loadingCenter }}" />
+  <v-loading class="loading" wx:if="{{ loadingBottom }}" />
 </view>

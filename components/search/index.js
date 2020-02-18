@@ -24,7 +24,9 @@ Component({
     pageIndex: 0,
     searching: false,
     keyword: '',
-    height: 100
+    height: 100,
+    loadingCenter: false,
+    loadingBottom: false
   },
 
   attached() {
@@ -59,6 +61,7 @@ Component({
       if (!keyword) return
       this.setData({
         searching: true,
+        loadingCenter: true,
         keyword
       })
 
@@ -67,7 +70,8 @@ Component({
           books,
           total,
           keyword,
-          pageIndex: 0
+          pageIndex: 0,
+          loadingCenter: false
         })
         keywordModel.setHistory(keyword).then(() => {
           const { historys } = this.data
@@ -75,6 +79,10 @@ Component({
           this.setData({
             historys
           })
+        })
+      }).catch(() => {
+        this.setData({
+          loadingCenter: false
         })
       })
     },
@@ -85,16 +93,24 @@ Component({
       })
     },
     loadMore() {
-      console.log(1)
-      const { pageIndex, total, keyword, books } = this.data
+      const { pageIndex, total, keyword, books, loadingBottom } = this.data
+      if (loadingBottom) return
       const currentIndex = (pageIndex + 1) * 20
       if (currentIndex >= total) return
-      bookModel.search(pageIndex + 1, keyword).then(({ books: newBooks, total }) => {
+      this.setData({
+        loadingBottom: true
+      })
+      bookModel.search(currentIndex, keyword).then(({ books: newBooks, total }) => {
         this.setData({
           books: books.concat(newBooks),
           total,
           keyword,
-          pageIndex: pageIndex + 1
+          pageIndex: pageIndex + 1,
+          loadingBottom: false
+        })
+      }).catch(() => {
+        this.setData({
+          loadingBottom: false
         })
       })
     }
