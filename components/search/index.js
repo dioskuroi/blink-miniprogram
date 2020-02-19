@@ -55,7 +55,7 @@ Component({
     onCancel() {
       this.triggerEvent('cancel')
     },
-    onConfirm({ detail }) {
+    async onConfirm({ detail }) {
       const { value, text } = detail
       const keyword = text || value
       if (!keyword) return
@@ -64,8 +64,8 @@ Component({
         loadingCenter: true,
         keyword
       })
-
-      bookModel.search(0, keyword).then(({books, total}) => {
+      try {
+        const { books, total } = await bookModel.search(0, keyword)
         this.setData({
           books,
           total,
@@ -73,23 +73,23 @@ Component({
           pageIndex: 0,
           loadingCenter: false
         })
-        keywordModel.setHistory(keyword).then(() => {
-          const { historys } = this.data
-          historys.unshift(keyword)
-          this.setData({
-            historys
-          })
+        await keywordModel.setHistory(keyword)
+        const { historys } = this.data
+        historys.unshift(keyword)
+        this.setData({
+          historys
         })
-      }).catch(() => {
+      } catch(err) {
         this.setData({
           loadingCenter: false
         })
-      })
+      }
     },
     onDelete() {
       this.setData({
         searching: false,
-        books: []
+        books: [],
+        keyword: ''
       })
     },
     loadMore() {
