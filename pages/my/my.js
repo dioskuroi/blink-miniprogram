@@ -36,18 +36,16 @@ Page({
     })
   },
 
-  userAuthorized() {
-    getSetting().then(data => {
-      const authorized = data['scope.userInfo'] || false
-      this.setData({
-        authorized 
-      })
-      if (!authorized) return
-      getUserInfo().then(({ userInfo }) => {
-        this.setData({
-          userInfo
-        })
-      })
+  async userAuthorized() {
+    const data = await getSetting()
+    const authorized = data['scope.userInfo'] || false
+    this.setData({
+      authorized
+    })
+    if (!authorized) return
+    const { userInfo } = await getUserInfo()
+    this.setData({
+      userInfo
     })
   },
 
