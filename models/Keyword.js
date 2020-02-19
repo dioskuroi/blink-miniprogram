@@ -9,24 +9,21 @@ export default class KeywordModel extends Http {
     return getStorage(this.key)
   }
 
-  setHistory(keyword) {
-    return new Promise((resolve, reject) => {
-      this.getHistory(this.key).then(({ data = [] }) => {
-        const has = data.includes(keyword)
-        if (!has) {
-          const length = data.length
-          if (length > this.maxLength) {
-            data.pop()
-          }
-          data.unshift(keyword)
-          setStorage(this.key, data).then(res => {
-            resolve(res)
-          }).catch(err => {
-            reject(err)
-          })
+  async setHistory(keyword) {
+    try {
+      const { data = [] } = await this.getHistory(this.key)
+      const has = data.includes(keyword)
+      if (!has) {
+        const length = data.length
+        if (length > this.maxLength) {
+          data.pop()
         }
-      })
-    })
+        data.unshift(keyword)
+        return await setStorage(this.key, data)
+      }
+    } catch(err) {
+      return Promise.reject(err)
+    }
   }
 
   getHot() {
