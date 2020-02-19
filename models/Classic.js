@@ -22,27 +22,21 @@ export default class ClassicModel extends Http {
     })
   }
 
-  _getClassic(curIndex, step) {
-    return new Promise(resolve => {
-      const key = this._getKey(curIndex + step)
-      getStorage(key).then(({ data }) => {
-        if (data) {
-          resolve(data)
-          return
-        }
-        this.request({
-          url: `classic/${curIndex}/${step > 0 ? 'next' : 'previous'}`
-        }).then(data => {
-          resolve(data)
-        })
-      }).catch(() => {
-        this.request({
-          url: `classic/${curIndex}/${step > 0 ? 'next' : 'previous'}`
-        }).then(data => {
-          resolve(data)
-        })
+  async _getClassic(curIndex, step) {
+    const key = this._getKey(curIndex + step)
+    try {
+      const { data } = await getStorage(key)
+      if (data) {
+        return data
+      }
+      return await this.request({
+        url: `classic/${curIndex}/${step > 0 ? 'next' : 'previous'}`
       })
-    })
+    } catch(err) {
+      return await this.request({
+        url: `classic/${curIndex}/${step > 0 ? 'next' : 'previous'}`
+      })
+    }
   }
 
   _getKey(index) {
@@ -51,8 +45,7 @@ export default class ClassicModel extends Http {
 
   resHandler({ data }, resolve) {
     const key = this._getKey(data.index)
-    setStorage(key, data).then(() => {
-      resolve(data)
-    })
+    resolve(data)
+    setStorage(key, data)
   }
 }
