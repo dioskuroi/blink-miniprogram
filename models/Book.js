@@ -31,14 +31,13 @@ export default class BookModel extends Http {
     })
   }
 
-  getAllBookDetail(bid) {
-    return Promise.all([
+  async getAllBookDetail(bid) {
+    const [book, { comments }, { like_status, fav_nums }] = await Promise.all([
       this.getDetail(bid),
       this.getComments(bid),
       this.getLikeStatus(bid)
-    ]).then(([book, { comments }, { like_status, fav_nums }]) => {
-      return Promise.resolve({ book, comments, likeStatus: like_status, likeCount: fav_nums })
-    })
+    ])
+    return { book, comments, likeStatus: like_status, likeCount: fav_nums }
   }
 
   postComment(bid, content) {
